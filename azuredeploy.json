@@ -266,7 +266,7 @@
         "createOption": "attach",
         "caching": "ReadOnly",
         "managedDisk": {
-           "id": "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), resourceId('Microsoft.Compute/disks', variables('secDiskName')), json('null'))]"
+           "id": "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), resourceId('Microsoft.Compute/disks', variables('secDiskName')), '')]"
         }
       }
           ]
@@ -282,7 +282,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]",
         "[resourceId('Microsoft.Compute/disks', variables('diskname'))]",
-        "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), resourceId('Microsoft.Compute/disks', variables('secDiskname')), json('null'))]"
+        "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), resourceId('Microsoft.Compute/disks', variables('secDiskname')), '')]"
       ]
     },
     {
