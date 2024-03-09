@@ -156,7 +156,7 @@
      "scriptType":"[if(equals(variables('ImageOffer'), 'WindowsServer'), 'CustomScriptExtension', 'CustomScript')]",
      "typeHandleVersion":"[if(equals(variables('ImageOffer'), 'WindowsServer'), '1.7', '2.1')]",
      "windowsCommandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File installpackage.ps1 -packagedownloaduri ',variables('backupgatewayPackage'),' -companyauthcode ', parameters('companyAuthCode'))]",
-     "linuxCommandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',variables('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' >> logfile.txt 2>&1')]",     
+     "linuxCommandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',variables('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' >> linuxBkpGateway.log 2>&1')]",     
      "dataDisks": "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), concat(parameters('firstDisk'), parameters('secondDisk')), parameters('firstDisk'))]"
   },
   "resources": [
