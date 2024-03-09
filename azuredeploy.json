@@ -107,6 +107,32 @@
         "description": "AuthCode from your Metallic account"
       }
     },
+    "firstDisk":{
+      "type": "array",
+      "defaultValue": [
+        {
+                  "lun": 0,
+                  "createOption": "attach",
+                  "caching": "ReadOnly",
+                  "managedDisk": {
+                    "id": "[resourceId('Microsoft.Compute/disks', variables('diskname'))]"
+                  }
+                }
+      ]
+    },
+    "secondDisk": {
+      "type": "array",
+      "defaultValue": [
+        {
+                  "lun": 1,
+                  "createOption": "attach",
+                  "caching": "ReadOnly",
+                  "managedDisk": {
+                    "id": "[resourceId('Microsoft.Compute/disks', variables('secDiskName'))]"
+                  }
+                }
+      ]
+    },
     "identity":{
       "type": "object",
       "defaultValue": {
@@ -130,7 +156,8 @@
      "scriptType":"[if(equals(variables('ImageOffer'), 'WindowsServer'), 'CustomScriptExtension', 'CustomScript')]",
      "typeHandleVersion":"[if(equals(variables('ImageOffer'), 'WindowsServer'), '1.7', '2.1')]",
      "windowsCommandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File installpackage.ps1 -packagedownloaduri ',variables('backupgatewayPackage'),' -companyauthcode ', parameters('companyAuthCode'))]",
-     "linuxCommandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',variables('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' >> logfile.txt 2>&1')]"
+     "linuxCommandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',variables('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' >> logfile.txt 2>&1')]",     
+     "dataDisks": "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), concat(parameters('firstDisk'), parameters('secondDisk')), parameters('firstDisk'))]"
   },
   "resources": [
     {
@@ -251,25 +278,7 @@
               "storageAccountType": "StandardSSD_LRS"
             }
           },
-          "dataDisks": [
-            // "[if(equals(parameters('ImageOffer'), 'WindowsServer'), parameters('windowsDiskConfig'), union(parameters('windowsDiskConfig'),parameters('linuxDiskConfig')))]"
-            {
-        "lun": 0,
-        "createOption": "attach",
-        "caching": "ReadOnly",
-        "managedDisk": {
-          "id": "[resourceId('Microsoft.Compute/disks', variables('diskname'))]"
-        }
-        }
-        ,{
-        "lun": 1,
-        "createOption": "attach",
-        "caching": "ReadOnly",
-        "managedDisk": {
-           "id": "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), resourceId('Microsoft.Compute/disks', variables('secDiskName')), '')]"
-        }
-      }
-          ]
+          "dataDisks": "[variables('dataDisks')]"
         },
         "networkProfile": {
           "networkInterfaces": [
@@ -281,8 +290,7 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]",
-        "[resourceId('Microsoft.Compute/disks', variables('diskname'))]",
-        "[if(equals(variables('ImageOffer'), 'Oracle-Linux'), resourceId('Microsoft.Compute/disks', variables('secDiskname')), '')]"
+        "[resourceId('Microsoft.Compute/disks', variables('diskname'))]"
       ]
     },
     {
