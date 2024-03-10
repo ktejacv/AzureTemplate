@@ -115,7 +115,7 @@
 						"allowedValues": [
 							{
 								"label": "Upto 25TB (extra small)",
-								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D2s_v4', '\",\"dataDiskSize\":\"', '128', '\"}'))]"
+								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D2s_v4', '\",\"dataDiskSize\":\"', '105', '\", \"secondaryDataDiskSize\":\"', '50', '\"}'))]"
 							},
 							{
 								"label": "Upto 50TB (extra small)",

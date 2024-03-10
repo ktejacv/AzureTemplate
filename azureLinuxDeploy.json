@@ -300,7 +300,7 @@
           "fileUris": [
             "https://ossindiaaccount.blob.core.windows.net/shellscript/AzueLinuxDeploy.sh"
           ],
-          "commandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',parameters('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' >> linuxBackupGateway.log 2>&1')]"
+          "commandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',parameters('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' ', parameters('dataDiskSize'), ' ', parameters('secondaryDataDiskSize'),' >> linuxBackupGateway.log 2>&1')]"
         }
       }
   }
