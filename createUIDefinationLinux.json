@@ -59,19 +59,23 @@
             },
             {
                 "name": "adminPassword",
-                "type": "Microsoft.Common.PasswordBox",
+                "type": "Microsoft.Compute.CredentialsCombo",
                 "label": {
                   "password": "Password",
                   "confirmPassword": "Confirm password"
                 },
+                "toolTip": {
+                  "password": ""
+                },
                 "constraints": {
                   "required": true,
-                  "regex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{12,}$",
-                  "validationMessage": "The password must be alphanumeric, Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character:."
+                  "customPasswordRegex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{12,}$",
+                  "customValidationMessage": "The password must be alphanumeric, Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character:."
                 },
                 "options": {
                   "hideConfirmation": false
                 },
+                "osPlatform": "Windows",
                 "visible": true
               }
         ],
