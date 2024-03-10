@@ -37,14 +37,12 @@
       },
       "dataDiskSize": {
         "type": "string",
-        "defaultValue": "50",
         "metadata": {
           "description": "Data disk size."
         }
       },
       "secondaryDataDiskSize": {
         "type": "string",
-        "defaultValue": "105",
         "metadata": {
           "description": "Data disk size."
         }

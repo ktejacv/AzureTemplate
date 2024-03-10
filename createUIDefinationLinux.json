@@ -227,6 +227,7 @@
 
             "vmSize": "[steps('VirtualMachineConfig').bet.vmsize]",
 			"dataDiskSize": "[steps('VirtualMachineConfig').bet.dataDiskSize]",
+            "secondaryDataDiskSize": "[steps('VirtualMachineConfig').bet.secondaryDataDiskSize]",
             "OSVersion": "[steps('VirtualMachineConfig').osversion]",
 
             "virtualNetworkNewOrExisting": "existing",
