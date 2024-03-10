@@ -59,13 +59,10 @@
             },
             {
                 "name": "adminPassword",
-                "type": "Microsoft.Compute.CredentialsCombo",
+                "type": "Microsoft.Common.PasswordBox",
                 "label": {
                   "password": "Password",
                   "confirmPassword": "Confirm password"
-                },
-                "toolTip": {
-                  "password": ""
                 },
                 "constraints": {
                   "required": true,
@@ -75,7 +72,6 @@
                 "options": {
                   "hideConfirmation": false
                 },
-                "osPlatform": "Linux",
                 "visible": true
               }
         ],
