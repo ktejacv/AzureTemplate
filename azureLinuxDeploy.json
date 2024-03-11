@@ -317,7 +317,7 @@
           "computerName": "[parameters('vmName')]",
           "adminUsername": "[parameters('adminUsername')]",
           "linuxConfiguration": {
-            "disablePasswordAuthentication": "[equals(parameters('authenticationType'), 'sshPublicKey')]",
+            "disablePasswordAuthentication": true,
             "ssh": {
                 "publicKeys": [
                     {
