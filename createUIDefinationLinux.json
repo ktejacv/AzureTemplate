@@ -58,26 +58,31 @@
                 }
             },
             {
-                "name": "adminPassword",
+                "name": "Credentials",
                 "type": "Microsoft.Compute.CredentialsCombo",
                 "label": {
+                  "authenticationType": "Authentication type",
                   "password": "Password",
-                  "confirmPassword": "Confirm password"
+                  "confirmPassword": "Confirm password",
+                  "sshPublicKey": "SSH public key"
                 },
                 "toolTip": {
-                  "password": ""
+                  "authenticationType": "",
+                  "password": "",
+                  "sshPublicKey": ""
                 },
                 "constraints": {
                   "required": true,
-                  "customPasswordRegex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{12,}$",
-                  "customValidationMessage": "The password must be alphanumeric, Minimum 12 characters, at least one uppercase letter, one lowercase letter, one number and one special character:."
+                  "customPasswordRegex": "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{12,}$",
+                  "customValidationMessage": "The password must be alphanumeric, contain at least 12 characters, and have at least 1 letter and 1 number."
                 },
                 "options": {
-                  "hideConfirmation": false
+                  "hideConfirmation": false,
+                  "hidePassword": false
                 },
-                "osPlatform": "Windows",
+                "osPlatform": "Linux",
                 "visible": true
-              }
+            }
         ],
         "steps": [
             {
@@ -223,7 +228,12 @@
             "location": "[basics('region')]",
             "vmName": "[basics('vmName')]",
             "adminUsername": "[basics('adminUsername')]",
-            "adminPassword": "[basics('adminPassword').password]",
+            "sshPublicKey": "[basics('Credentials').sshPublicKey]",
+            "authenticationType": "[basics('Credentials').authenticationType]",
+            "sshPublicKeyData": "[if(equals(basics('Credentials').authenticationType, 'sshPublicKey'), basics('Credentials').sshPublicKey, '')]",
+            "adminPasswordData": "[if(equals(basics('Credentials').authenticationType, 'password'), basics('Credentials').password, '')]",
+            "sshKeyName": "[if(equals(basics('Credentials').authenticationType, 'sshPublicKey'), basics('Credentials').sshKeyName, '')]",
+            "generateNewSshKey": "[if(equals(basics('Credentials').authenticationType, 'sshPublicKey'), basics('Credentials').generateNewSshKey, '')]",
 
             "vmSize": "[steps('VirtualMachineConfig').bet.vmsize]",
 			"dataDiskSize": "[steps('VirtualMachineConfig').bet.dataDiskSize]",
