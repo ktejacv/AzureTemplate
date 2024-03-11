@@ -268,7 +268,22 @@
           "hardwareProfile": {
             "vmSize": "[parameters('vmsize')]"
           },
-          "osProfile": "[variables('osprofile')]",
+          "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPasswordData')]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": "[equals(parameters('authenticationType'), 'sshPublicKey')]",
+            "ssh": {
+                "publicKeys": [
+                    {
+                        "path": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
+                        "keyData": "[if(equals(parameters('sshKeyName'), ''), parameters('sshPublicKeyData'), reference(resourceId('Microsoft.Compute/sshPublicKeys', parameters('sshKeyName')), '2019-12-01').publicKey)]"
+                    }
+                ]
+            }
+        }
+      },
           "storageProfile": {
             "imageReference": {
               "publisher": "Oracle",
