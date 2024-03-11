@@ -47,21 +47,6 @@
           "description": "SSH key name for the Virtual Machine."
         }
       },
-      "generateNewSshKey":{ 
-        "type": "bool",
-        "defaultValue": false,
-        "metadata": {
-          "description": "Generate new SSH key pair for the Virtual Machine."
-        }
-      },
-      "passwordOsProfile": {
-        "type": "object",
-        "defaultValue":{
-            "computerName": "[parameters('vmName')]",
-            "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPasswordData')]"
-          }
-      },
       "vmsize": {
         "type": "string",
         "defaultValue": "Standard_D2s_v4",
@@ -165,7 +150,6 @@
        "addressPrefixes": "[split(parameters('addressPrefixes'), ',')]",
        "Reader": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
        "bootstrapRoleAssignmentId": "[guid(concat(resourceGroup().id, 'Reader', parameters('vmName')))]"
-      //  "osprofile": "[if(equals(parameters('authenticationType'), 'password'), parameters('passwordOsProfile'), parameters('sshOsProfile'))]"
     },
     "resources": [
       {
