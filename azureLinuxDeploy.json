@@ -241,6 +241,7 @@
         }
       },
       {
+        "condition": "[equals(parameters('authenticationType'), 'password')]",
         "type": "Microsoft.Compute/virtualMachines",
         "apiVersion": "2021-03-01",
         "name": "[parameters('vmName')]",
@@ -253,7 +254,68 @@
           "osProfile": {
           "computerName": "[parameters('vmName')]",
           "adminUsername": "[parameters('adminUsername')]",
-          "adminPassword": "[parameters('adminPasswordData')]",
+          "adminPassword": "[parameters('adminPasswordData')]"
+      },
+          "storageProfile": {
+            "imageReference": {
+              "publisher": "Oracle",
+              "offer": "Oracle-Linux",
+              "sku": "[parameters('OSVersion')]",
+              "version": "latest"
+            },
+            "osDisk": {
+              "createOption": "FromImage",
+              "managedDisk": {
+                "storageAccountType": "StandardSSD_LRS"
+              }
+            },
+            "dataDisks": [
+              {
+                "lun": 0,
+                "createOption": "attach",
+                "caching": "ReadOnly",
+                "managedDisk": {
+                  "id": "[resourceId('Microsoft.Compute/disks', variables('diskname'))]"
+                }
+              },
+              {
+                  "lun": 1,
+                  "createOption": "attach",
+                  "caching": "ReadOnly",
+                  "managedDisk": {
+                    "id": "[resourceId('Microsoft.Compute/disks', variables('secDiskName'))]"
+                  }
+                }
+            ]
+          },
+          "networkProfile": {
+            "networkInterfaces": [
+              {
+                "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+              }
+            ]
+          }
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]",
+          "[resourceId('Microsoft.Compute/disks', variables('diskname'))]",
+          "[resourceId('Microsoft.Compute/disks', variables('secDiskName'))]"
+        ]
+      },
+      {
+        "condition": "[equals(parameters('authenticationType'), 'sshPublicKey')]",
+        "type": "Microsoft.Compute/virtualMachines",
+        "apiVersion": "2021-03-01",
+        "name": "[parameters('vmName')]",
+        "location": "[parameters('location')]",
+        "identity": "[if(not(equals(parameters('identity').type, 'None')), parameters('identity') , json('null'))]",
+        "properties": {
+          "hardwareProfile": {
+            "vmSize": "[parameters('vmsize')]"
+          },
+          "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
           "linuxConfiguration": {
             "disablePasswordAuthentication": "[equals(parameters('authenticationType'), 'sshPublicKey')]",
             "ssh": {
