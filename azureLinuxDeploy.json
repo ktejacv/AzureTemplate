@@ -38,13 +38,13 @@
       "dataDiskSize": {
         "type": "string",
         "metadata": {
-          "description": "Data disk size."
+          "description": "Install,Log and Data disk size."
         }
       },
       "secondaryDataDiskSize": {
         "type": "string",
         "metadata": {
-          "description": "Data disk size."
+          "description": "DDB Data disk size."
         }
       },
       "virtualNetworkNewOrExisting": {
@@ -100,7 +100,7 @@
         "ol84-lvm-gen2"
       ],
       "metadata": {
-        "description": "The Windows version for the VM. This will pick a fully patched Gen2 image of this given Windows version."
+        "description": "The Linux version for the VM. This will pick a fully patched Gen2 image of this given Oracle Linux version."
       }
     },
       "backupGatewayPackage": {
