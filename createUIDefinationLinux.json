@@ -231,7 +231,7 @@
             "sshPublicKey": "[basics('Credentials').sshPublicKey]",
             "authenticationType": "[basics('Credentials').authenticationType]",
             "sshPublicKeyData": "[if(equals(basics('Credentials').authenticationType, 'sshPublicKey'), basics('Credentials').sshPublicKey, '')]",
-            "adminPasswordData": "[if(equals(basics('Credentials').authenticationType, 'password'), basics('Credentials').password, '')]",
+            "adminPasswordData": "[if(equals(basics('Credentials').authenticationType, 'password'), basics('Credentials').password, 'ThisIsASecurePassword')]",
             "sshKeyName": "[if(equals(basics('Credentials').authenticationType, 'sshPublicKey'), basics('Credentials').sshKeyName, '')]",
             "generateNewSshKey": "[if(equals(basics('Credentials').authenticationType, 'sshPublicKey'), basics('Credentials').generateNewSshKey, '')]",
 
