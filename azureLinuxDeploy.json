@@ -37,16 +37,14 @@
       },
       "dataDiskSize": {
         "type": "string",
-        "defaultValue": "50",
         "metadata": {
-          "description": "Data disk size."
+          "description": "Install,Log and Data disk size."
         }
       },
       "secondaryDataDiskSize": {
         "type": "string",
-        "defaultValue": "105",
         "metadata": {
-          "description": "Data disk size."
+          "description": "DDB Data disk size."
         }
       },
       "virtualNetworkNewOrExisting": {
@@ -102,7 +100,7 @@
         "ol84-lvm-gen2"
       ],
       "metadata": {
-        "description": "The Windows version for the VM. This will pick a fully patched Gen2 image of this given Windows version."
+        "description": "The Linux version for the VM. This will pick a fully patched Gen2 image of this given Oracle Linux version."
       }
     },
       "backupGatewayPackage": {
@@ -300,7 +298,7 @@
           "fileUris": [
             "https://ossindiaaccount.blob.core.windows.net/shellscript/AzueLinuxDeploy.sh"
           ],
-          "commandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',parameters('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' >> linuxBackupGateway.log 2>&1')]"
+          "commandToExecute": "[concat('chmod 0777 AzueLinuxDeploy.sh && sudo dos2unix AzueLinuxDeploy.sh && sudo ./AzueLinuxDeploy.sh ',parameters('backupgatewayPackage'), ' ',parameters('companyAuthCode'),' ', parameters('dataDiskSize'), ' ', parameters('secondaryDataDiskSize'),' >> linuxBackupGateway.log 2>&1')]"
         }
       }
   }
