@@ -62,24 +62,6 @@
             "adminPassword": "[parameters('adminPasswordData')]"
           }
       },
-      "sshOsProfile": {
-        "type": "object",
-        "defaultValue":{
-          "computerName": "[parameters('vmName')]",
-          "adminUsername": "[parameters('adminUsername')]",
-          "linuxConfiguration": {
-            "disablePasswordAuthentication": true,
-            "ssh": {
-                "publicKeys": [
-                    {
-                        "path": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
-                        "keyData": "[if(equals(parameters('sshKeyName'), ''), parameters('sshPublicKeyData'), reference(resourceId('Microsoft.Compute/sshPublicKeys', parameters('sshKeyName')), '2019-12-01').publicKey)]"
-                    }
-                ]
-            }
-        }
-      }
-      },
       "vmsize": {
         "type": "string",
         "defaultValue": "Standard_D2s_v4",
@@ -182,8 +164,8 @@
        "secDiskName": "[concat(parameters('vmName'), '_DataDisk_1')]",
        "addressPrefixes": "[split(parameters('addressPrefixes'), ',')]",
        "Reader": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
-       "bootstrapRoleAssignmentId": "[guid(concat(resourceGroup().id, 'Reader', parameters('vmName')))]",
-       "osprofile": "[if(equals(parameters('authenticationType'), 'password'), parameters('passwordOsProfile'), parameters('sshOsProfile'))]"
+       "bootstrapRoleAssignmentId": "[guid(concat(resourceGroup().id, 'Reader', parameters('vmName')))]"
+      //  "osprofile": "[if(equals(parameters('authenticationType'), 'password'), parameters('passwordOsProfile'), parameters('sshOsProfile'))]"
     },
     "resources": [
       {
