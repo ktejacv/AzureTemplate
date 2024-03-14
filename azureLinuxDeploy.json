@@ -47,7 +47,7 @@
           "description": "SSH key name for the Virtual Machine."
         }
       },
-      "vmsize": {
+      "vmSize": {
         "type": "string",
         "defaultValue": "Standard_D2s_v4",
         "metadata": {
@@ -233,7 +233,7 @@
         "identity": "[if(not(equals(parameters('identity').type, 'None')), parameters('identity') , json('null'))]",
         "properties": {
           "hardwareProfile": {
-            "vmSize": "[parameters('vmsize')]"
+            "vmSize": "[parameters('vmSize')]"
           },
           "osProfile": {
           "computerName": "[parameters('vmName')]",
@@ -295,7 +295,7 @@
         "identity": "[if(not(equals(parameters('identity').type, 'None')), parameters('identity') , json('null'))]",
         "properties": {
           "hardwareProfile": {
-            "vmSize": "[parameters('vmsize')]"
+            "vmSize": "[parameters('vmSize')]"
           },
           "osProfile": {
           "computerName": "[parameters('vmName')]",
