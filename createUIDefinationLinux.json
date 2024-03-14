@@ -122,19 +122,19 @@
 							},
 							{
 								"label": "Upto 50TB (extra small)",
-								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D2s_v4', '\",\"dataDiskSize\":\"', '256', '\"}'))]"
+								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D2s_v4', '\",\"dataDiskSize\":\"', '155', '\", \"secondaryDataDiskSize\":\"', '100', '\"}'))]"
 							},
 							{
 								"label": "Upto 100TB (small)",
-								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D4s_v4', '\",\"dataDiskSize\":\"', '512', '\"}'))]"
+								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D4s_v4', '\",\"dataDiskSize\":\"', '255', '\", \"secondaryDataDiskSize\":\"', '200', '\"}'))]"
 							},
 							{
 								"label": "Upto 125TB (medium)",
-								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D8s_v4', '\",\"dataDiskSize\":\"', '512', '\"}'))]"
+								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D8s_v4', '\",\"dataDiskSize\":\"', '305', '\", \"secondaryDataDiskSize\":\"', '250', '\"}'))]"
 							},
 							{
 								"label": "Upto 200TB (medium)",
-								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D8s_v4', '\",\"dataDiskSize\":\"', '1024', '\"}'))]"
+								"value": "[parse(concat('{\"vmsize\":\"', 'Standard_D8s_v4', '\",\"dataDiskSize\":\"', '355', '\", \"secondaryDataDiskSize\":\"', '300', '\"}'))]"
 							}
 						],
 						"required": true
